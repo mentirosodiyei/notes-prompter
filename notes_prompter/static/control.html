@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>notes-prompter · control</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f5f5f4;
+      --fg: #1c1c1c;
+      --muted: #6b6b6b;
+      --card: #ffffff;
+      --accent: #2563eb;
+      --danger: #b91c1c;
+      --border: #d6d6d3;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #161616;
+        --fg: #eeeeee;
+        --muted: #9a9a9a;
+        --card: #1f1f1f;
+        --accent: #60a5fa;
+        --danger: #f87171;
+        --border: #333333;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #161616;
+      --fg: #eeeeee;
+      --muted: #9a9a9a;
+      --card: #1f1f1f;
+      --accent: #60a5fa;
+      --danger: #f87171;
+      --border: #333333;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 16px;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.4;
+    }
+    h1 { font-size: 20px; margin: 0 0 12px; }
+    h2 { font-size: 15px; margin: 0 0 8px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    button {
+      font: inherit;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--fg);
+      cursor: pointer;
+    }
+    button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    button:disabled { opacity: 0.5; cursor: default; }
+    input[type="text"], input[type="number"] {
+      font: inherit;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--fg);
+    }
+    input[type="text"] { flex: 1 1 260px; min-width: 0; }
+    input[type="number"] { width: 90px; }
+    #presentations { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+    #presentations button { width: 100%; text-align: left; }
+    #presentations button.active { border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+    #position { font-size: 18px; font-weight: 600; min-width: 90px; }
+    #preview {
+      white-space: pre-wrap;
+      font-size: 17px;
+      margin: 0;
+      min-height: 4em;
+      padding: 12px;
+      border-radius: 8px;
+      background: #000;
+      color: #fff;
+    }
+    #preview:empty::before { content: "(sin notas)"; color: #666; }
+    #error { color: var(--danger); min-height: 1.4em; margin: 0 0 8px; font-size: 14px; }
+    #status { font-size: 13px; color: var(--muted); }
+    #status[data-state="connected"] { color: #16a34a; }
+    #status[data-state="disconnected"] { color: var(--danger); }
+    .hint { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+  </style>
+</head>
+<body>
+  <h1>notes-prompter · control manual</h1>
+  <p><a href="/">Abrir panel completo del master: notas y presets</a></p>
+  <p id="error" role="alert"></p>
+
+  <section>
+    <h2>Presentaciones</h2>
+    <ul id="presentations"></ul>
+    <p id="empty" class="hint">No hay presentaciones cargadas. Carga una ruta .pptx abajo.</p>
+    <form id="load-form" class="row" style="margin-top:10px">
+      <input id="path" type="text" placeholder="/ruta/a/presentacion.pptx" autocomplete="off">
+      <button class="primary" type="submit">Cargar</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Diapositiva</h2>
+    <div class="row">
+      <button id="prev" type="button">‹ Anterior</button>
+      <span id="position">–</span>
+      <button id="next" type="button">Siguiente ›</button>
+    </div>
+    <form id="goto-form" class="row" style="margin-top:10px">
+      <label for="goto-index">Ir a</label>
+      <input id="goto-index" type="number" min="1" step="1">
+      <button type="submit">Ir</button>
+    </form>
+    <p class="hint">Atajos: ← / → cambian de diapositiva cuando no escribes en un campo.</p>
+  </section>
+
+  <section>
+    <h2>Vista previa de la nota</h2>
+    <pre id="preview"></pre>
+  </section>
+
+  <p id="status" data-state="connecting">conectando…</p>
+  <script src="/static/control.js?v=0.5.0"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>notes-prompter · receptor</title>
+  <style>
+    :root { color-scheme: dark; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #000;
+      color: #fff;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    /* Sin padding aquí: el texto lleva su propio padding, así que medir su
+       tamaño frente a este contenedor da el espacio útil exacto. */
+    #note {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #text {
+      box-sizing: border-box;
+      max-width: 100%;
+      padding: 4vh 4vw;
+      margin: 0;
+      text-align: center;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      line-height: 1.25;
+      color: #fff;
+    }
+    #note { overflow-anchor: none; }
+    #note.scrolling { display: block; overflow-y: auto; scrollbar-width: none; }
+    #note.scrolling::-webkit-scrollbar { display: none; }
+    #note.scrolling #text { width: 100%; text-align: left; padding-bottom: 13vh; }
+    #pager {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      background: #111;
+      color: #888;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    #pager:hover { color: #fff; }
+    #pager[hidden] { display: none; }
+    #status {
+      position: fixed;
+      left: 12px;
+      bottom: 8px;
+      font-size: 12px;
+      color: #444;
+      transition: color 0.3s;
+    }
+    #status[data-state="connected"] { color: #2a2; }
+    #status[data-state="disconnected"] { color: #a22; }
+  </style>
+</head>
+<body>
+  <main id="note" tabindex="0" aria-label="Notas del orador"><p id="text"></p></main>
+  <button id="pager" type="button" hidden></button>
+  <div id="status" data-state="connecting">conectando…</div>
+  <script src="/static/display.js?v=0.5.0"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "$schema": "../node_modules/@companion-module/base/assets/manifest.schema.json",
+  "type": "connection",
+  "id": "notesprompter-master",
+  "name": "Notes Prompter: Master",
+  "shortname": "NP",
+  "description": "Selecciona la fuente de notas y ajusta letra y velocidad en directo",
+  "version": "1.0.3",
+  "license": "MIT",
+  "repository": "",
+  "bugs": "",
+  "maintainers": [
+    {
+      "name": "Notes Prompter"
+    }
+  ],
+  "runtime": {
+    "type": "node22",
+    "api": "nodejs-ipc",
+    "apiVersion": "0.0.0",
+    "entrypoint": "../src/main.js"
+  },
+  "legacyIds": [],
+  "manufacturer": "Notes Prompter",
+  "products": [
+    "Master"
+  ],
+  "keywords": [
+    "PowerPoint",
+    "notas",
+    "prompter",
+    "rotary",
+    "knob"
+  ]
+}
