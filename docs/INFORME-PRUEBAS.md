@@ -1,4 +1,4 @@
-# Informe beta - Notes Prompter 0.5.0
+# Informe de pruebas - Notes Prompter 0.5.1
 
 Usa datos ficticios. No incluyas notas, nombres, direcciones, PPT ni ajustes personales.
 

@@ -1,8 +1,8 @@
 # Notes Prompter
 
-## Descàrregues beta
+## Descàrregues
 
-[Instal·ladors i EXE portable](https://github.com/mentirosodiyei/notes-prompter/releases/tag/v0.5.0-beta.1) · [Guia per a beta testers (PDF en castellà)](Guia-Beta-Testers-0.5.0.pdf) · [Fitxa de proves](INFORME-BETA.md). Consulta [l’estat i les limitacions](RELEASE-0.5.0.md). Inclou el [mòdul Companion 5.1.1](../companion-module/README.md) com a codi i paquet separat.
+[Instal·ladors i EXE portable](https://github.com/mentirosodiyei/notes-prompter/releases/latest) · [Guia d’usuari (PDF en castellà)](Guia-Usuario-0.5.1.pdf) · [Fitxa de proves](INFORME-PRUEBAS.md). Consulta [l’estat i les limitacions](RELEASE-0.5.1.md). Inclou el [mòdul Companion 5.1.1](../companion-module/README.md) com a codi i paquet separat.
 
 **Notes del presentador de PowerPoint en una pantalla estesa, amb ajustos per presentació i diapositiva.**
 
@@ -54,3 +54,14 @@ Companion 1.0.3 continua sent compatible per triar l’origen, ajustar lletra/ve
 UDP 8766 descobreix agents i TCP 8765 transporta notes i configuració. La xarxa anuncia noms d’equips i presentacions i comparteix les notes. **No hi ha autenticació ni xifratge**: fes servir una LAN de confiança i no exposis el servei a Internet. No hi ha telemetria. Llegeix [SECURITY.md](../SECURITY.md).
 
 Les captures només contenen dades fictícies. El paquet públic exclou ajustos, presentacions, historials, entorns i binaris locals. La validació automatitzada i sota Rosetta no substitueix una prova física del Windows, el PowerPoint i diversos monitors. Consulta [la revisió](REVIEW.md).
+
+## Actualitzacions
+
+Des de la 0.5.1, **Aplicació → Actualitzacions** permet triar **setmanal** (per defecte, 7 dies) o **mensual** (30 dies), desactivar la cerca automàtica o cercar ara. La darrera consulta es recorda entre sessions. Els avisos esperen fins que aturis l’agent o la sortida i la finestra sigui visible. Pots acceptar, triar **Ara no** o **Omet aquesta versió**; la cerca manual pot tornar a oferir les versions omeses.
+
+En acceptar, es descarrega el paquet correcte de GitHub i se’n verifiquen mida i SHA256 abans de preparar-lo. Al Mac també es comproven signatura, versió, arquitectura i sistema mínim. L’app s’instal·la i es reinicia conservant els ajustos i les preconfiguracions, amb una còpia de l’app/EXE anterior. Windows conserva la instal·lació per usuari o substitueix el portable. No s’eleven privilegis ni es canvien les proteccions del sistema.
+
+**La 0.5.0 no té actualitzador:** instal·la la 0.5.1 manualment una vegada. Les versions posteriors es podran actualitzar des de l’app. L’execució des del codi font no s’actualitza sola ni fa consultes automàtiques.
+
+
+![Actualitzacions setmanals o mensuals, amb cerca manual opcional.](images/updates-ca.png)

@@ -1,7 +1,7 @@
 ---
-name: Beta bug report
+name: Bug report
 about: Report a reproducible issue using synthetic notes only
-title: "[Beta 0.5.0] "
+title: "[0.5.1] "
 labels: ""
 assignees: ""
 ---

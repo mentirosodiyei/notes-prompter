@@ -1,8 +1,8 @@
 # Notes Prompter
 
-## Beta downloads
+## Downloads
 
-[Download installers and portable Windows EXE](https://github.com/mentirosodiyei/notes-prompter/releases/tag/v0.5.0-beta.1) · [Beta tester guide (Spanish PDF)](docs/Guia-Beta-Testers-0.5.0.pdf) · [Report a test](docs/INFORME-BETA.md). This is a prerelease; see [validation and known limitations](docs/RELEASE-0.5.0.md). The optional [Companion 5.1.1 module](companion-module/README.md) is included as source and as a separate release asset.
+[Download installers and portable Windows EXE](https://github.com/mentirosodiyei/notes-prompter/releases/latest) · [User guide (Spanish PDF)](docs/Guia-Usuario-0.5.1.pdf) · [Report a test](docs/INFORME-PRUEBAS.md). See [validation and known limitations](docs/RELEASE-0.5.1.md). The optional [Companion 5.1.1 module](companion-module/README.md) is included as source and as a separate release asset.
 
 **Live PowerPoint speaker notes on an extended display, with per-presentation and per-slide reading settings.**
 
@@ -99,3 +99,14 @@ python tools/privacy_audit.py
 See [CONTRIBUTING.md](CONTRIBUTING.md) for translations, screenshot regeneration and tests, and [review notes](docs/REVIEW.md) for fixed issues and validation boundaries. PowerPoint/COM tests use substitutes; tests on macOS or under Rosetta do not establish Windows hardware compatibility. Physical PowerPoint, multiple displays, OS gestures and Windows installer execution still need release testing.
 
 MIT license. See [LICENSE](LICENSE).
+
+## Updates
+
+From 0.5.1, **Application → Updates** lets you choose weekly (default, 7 days) or monthly (30 days), disable automatic checks, or check now. The last check is remembered across restarts. Checks use this repository's latest published release and the package matching the installed architecture. Notices wait until the agent/output stops and the main window is visible. Choose **Download and install**, **Not now**, or **Skip this version**. Manual checks can offer a skipped version again.
+
+Downloads require HTTPS, matching size and GitHub's SHA256 digest. Mac apps also pass signature, bundle version, architecture and minimum OS checks. The app stages the update before quitting and restarts after installation, preserving presets/settings. Portable replacements keep the previous executable/app; Windows installations use the per-user installer with the same destination. No administrator escalation, quarantine removal or security-setting changes are performed. Read-only destinations report an error and keep the app open.
+
+**0.5.0 has no updater:** install 0.5.1 manually once. Future published versions can then be installed from the app. Running from source does not self-update or perform automatic network checks.
+
+
+![Update settings: weekly or monthly, with an optional manual check.](docs/images/updates-en.png)

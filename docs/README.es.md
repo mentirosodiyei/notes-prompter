@@ -1,8 +1,8 @@
 # Notes Prompter
 
-## Descargas beta
+## Descargas
 
-[Instaladores y EXE portable](https://github.com/mentirosodiyei/notes-prompter/releases/tag/v0.5.0-beta.1) · [Guía para beta testers (PDF)](Guia-Beta-Testers-0.5.0.pdf) · [Ficha de pruebas](INFORME-BETA.md). Consulta el [estado y las limitaciones](RELEASE-0.5.0.md). Incluye el [módulo Companion 5.1.1](../companion-module/README.md) como código y paquete separado.
+[Instaladores y EXE portable](https://github.com/mentirosodiyei/notes-prompter/releases/latest) · [Guía de usuario (PDF)](Guia-Usuario-0.5.1.pdf) · [Ficha de pruebas](INFORME-PRUEBAS.md). Consulta el [estado y las limitaciones](RELEASE-0.5.1.md). Incluye el [módulo Companion 5.1.1](../companion-module/README.md) como código y paquete separado.
 
 **Notas del orador de PowerPoint en una pantalla extendida, con ajustes por presentación y diapositiva.**
 
@@ -54,3 +54,14 @@ Companion 1.0.3 sigue siendo compatible para elegir origen, ajustar letra/veloci
 UDP 8766 descubre agentes y TCP 8765 transporta notas y configuración. La red anuncia nombres de equipos y presentaciones y comparte las notas. **No hay autenticación ni cifrado**: usa una LAN de confianza y no expongas el servicio a Internet. No hay telemetría. Lee [SECURITY.md](../SECURITY.md).
 
 Las capturas contienen solo datos ficticios. El paquete público excluye ajustes, presentaciones, historiales, entornos y binarios locales. La validación automatizada y bajo Rosetta no sustituye una prueba física de Windows, PowerPoint y varios monitores. Consulta [la revisión](REVIEW.md).
+
+## Actualizaciones
+
+Desde la 0.5.1, **Aplicación → Actualizaciones** permite elegir **semanal** (por defecto, 7 días) o **mensual** (30 días), desactivar la búsqueda automática o buscar ahora. La última consulta se recuerda entre sesiones. El aviso espera a que pares el agente o la salida y tengas la ventana visible. Puedes aceptar, elegir **Ahora no** u **Omitir esta versión**; la búsqueda manual vuelve a ofrecer las versiones omitidas.
+
+Al aceptar se descarga el paquete correcto de GitHub, se verifican tamaño y SHA256 y se prepara antes de cerrar la app. En Mac también se verifican firma, versión, arquitectura y sistema mínimo. Después se instala y se reinicia, conservando ajustes y presets. Se mantiene una copia de la app/EXE anterior. La instalación de Windows conserva su ruta y usuario; el portable se reemplaza como portable. No se solicitan privilegios de administrador ni se cambian las protecciones del sistema. Si no se puede preparar el reemplazo, la app sigue abierta.
+
+**La 0.5.0 no tiene actualizador:** instala la 0.5.1 manualmente una vez. Las siguientes versiones publicadas podrán actualizarse desde la app. La ejecución desde código fuente no se actualiza sola ni realiza consultas automáticas.
+
+
+![Actualizaciones semanales o mensuales, con búsqueda manual opcional.](images/updates-es.png)

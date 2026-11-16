@@ -46,7 +46,7 @@ packaging\build_windows.bat ".venv\Scripts\python.exe"
 packaging\build_installer_windows.bat "C:\Program Files (x86)\Inno Setup 7\ISCC.exe" ".venv\Scripts\python.exe"
 ```
 
-Use the actual compiler path on the build machine. The scripts produce `dist\notes-prompter.exe` and `dist\Notes-Prompter-Setup-0.5.0.exe`. Source files do not mean these executables have already been built or tested on Windows.
+Use the actual compiler path on the build machine. The scripts produce `dist\notes-prompter.exe` and `dist\Notes-Prompter-Setup-0.5.1.exe`. Source files do not mean these executables have already been built or tested on Windows.
 
 The installer selects English, Catalan or Spanish using the Windows UI language; unsupported languages fall back to English. It needs the standard Inno Setup Catalan/Spanish language files. The language policy uses [LanguageDetectionMethod](https://jrsoftware.org/inno-setup/documentation/topic_setup_languagedetectionmethod.htm) and [ShowLanguageDialog](https://jrsoftware.org/inno-setup/documentation/topic_setup_showlanguagedialog.htm). Validate the full installer and uninstall flow on Windows before releasing it.
 
@@ -63,3 +63,5 @@ The installer selects English, Catalan or Spanish using the Windows UI language;
 There is a CI workflow for source tests and the privacy audit. CI does not exercise physical PowerPoint, desktop gestures or signing/notarization credentials.
 
 If macOS adds Finder/File Provider metadata in a cloud-synced checkout, build and sign outside that synced folder. For example, set `NOTES_PROMPTER_DIST_DIR` and `NOTES_PROMPTER_BUILD_DIR` to architecture-specific folders under the system temporary directory. Do not remove quarantine or disable platform protections to work around signing failures. Verify the clean bundle and final DMG with `codesign --verify --deep --strict` and `hdiutil verify`.
+
+Windows packages can also be built with the manually dispatched Windows package workflow. It verifies the fixed official Inno Setup 7.1.1 compiler digest, runs source checks and exercises the frozen helper against disposable portable/installed copies. It uploads artifacts only; publishing is a separate action.

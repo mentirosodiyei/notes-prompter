@@ -1,6 +1,6 @@
-# 0.5.0 beta 1 - release status
+# 0.5.0 - release status
 
-The application version is 0.5.0. The GitHub prerelease tag is v0.5.0-beta.1. Platform packages are separate assets; do not use the Intel package on an Apple Silicon Mac.
+The application version is 0.5.0. Originally published on 14 November 2026. Platform packages are separate assets; do not use the Intel package on an Apple Silicon Mac.
 
 ## Integrated changes
 
@@ -16,10 +16,10 @@ The Windows producer reports 237 passing Python tests, one macOS-only skip, two 
 
 The merged source was checked on macOS: 237 tests passed on the first run and one discovery test hit a temporary port collision; that test passed when rerun. Two renderer tests passed. macOS packages were rebuilt from this merged application source and their signatures, architectures, catalogs and startup checked. Intel startup was checked under Rosetta, not physical Intel hardware.
 
-Windows executables have no Authenticode signature. macOS uses ad hoc signing without notarization. The PDF guide explains beta installation, checks and reporting without disabling platform protections.
+Windows executables have no Authenticode signature. macOS uses ad hoc signing without notarization. The PDF guide explains installation, checks and reporting without disabling platform protections.
 
-Physical PowerPoint integration, unsaved note edits on Windows, real UI languages on Windows, multi-monitor/DPI/Spaces behaviour, network reconnection and update/uninstall preservation still require beta tests. The tool uses plaintext unauthenticated trusted-LAN communication. Presentation identity is normalized file name plus slide index; same-name decks and reordered slides require care.
+Physical PowerPoint integration, unsaved note edits on Windows, real UI languages on Windows, multi-monitor/DPI/Spaces behaviour, network reconnection and update/uninstall preservation still require manual tests. The tool uses plaintext unauthenticated trusted-LAN communication. Presentation identity is normalized file name plus slide index; same-name decks and reordered slides require care.
 
-The Companion module passed all 19 tests against the merged 0.5.0 API and the real Companion 5.1.1 connection runtime, using synthetic loopback data. Two test assertions were updated to accept localized feedback; the module runtime code is unchanged. Real surfaces/knobs still need beta testing.
+The Companion module passed all 19 tests against the merged 0.5.0 API and the real Companion 5.1.1 connection runtime, using synthetic loopback data. Two test assertions were updated to accept localized feedback; the module runtime code is unchanged. Real surfaces/knobs still need manual testing.
 
 Source, screenshots and demo data were reviewed for personal information. The app module code filenames inside all three portable/frozen executables were checked and contain no user-home paths. Binary inspection is separate from the source privacy audit; no audit is a guarantee against all possible sensitive data.
