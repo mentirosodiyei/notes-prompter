@@ -27,3 +27,6 @@ work/
 outputs/
 
 companion-module/pkg/
+
+updates.json
+update-result.json

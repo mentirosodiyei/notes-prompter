@@ -28,7 +28,7 @@ def audit(root: Path) -> tuple[int,list[str]]:
         if path.is_symlink():problems.append(f'{relative}: symlinks are not part of the public source package');continue
         if not path.is_file():continue
         count+=1
-        if path.suffix.lower() in ARTIFACTS or path.name.startswith('.env') or path.name.startswith('settings') and path.suffix=='.json':
+        if path.suffix.lower() in ARTIFACTS or path.name.startswith('.env') or path.name in {'updates.json','update-result.json'} or path.name.startswith('settings') and path.suffix=='.json':
             problems.append(f'{relative}: local or sensitive artifact')
         data=path.read_bytes()
         if path.suffix.lower()=='.png':

@@ -157,3 +157,29 @@ def test_schedule_survives_restart_and_does_not_recheck_each_launch(monkeypatch,
     first=ui.UpdateManager(root)
     second=ui.UpdateManager(root)
     assert first.next_check==second.next_check==500+(days-1)*86400
+
+
+def test_helper_waits_for_ui_and_bootloader_before_replacing(monkeypatch,tmp_path):
+    from types import SimpleNamespace
+    import sys
+    target=tmp_path/'Notes Prompter.app';target.mkdir();(target/'marker').write_text('old')
+    candidate=tmp_path/'candidate';candidate.mkdir();(candidate/'marker').write_text('new')
+    backup=tmp_path/'previous.app';plan=tmp_path/'plan.json';result=tmp_path/'result.json'
+    plan.write_text(json.dumps({'pid':321,'bootloader_pid':123,'kind':'mac','target':str(target),
+                               'candidate':str(candidate),'backup':str(backup),'result':str(result),'version':'0.6.0'}))
+    waited=[]
+    class FakeProcess:
+        def __init__(self,pid):self.pid=pid
+        def wait(self,timeout):
+            assert (target/'marker').read_text()=='old'
+            assert not backup.exists()
+            waited.append(self.pid)
+    monkeypatch.setitem(sys.modules,'psutil',SimpleNamespace(Process=FakeProcess,NoSuchProcess=ProcessLookupError))
+    monkeypatch.setattr(u.sys,'platform','darwin')
+    monkeypatch.setattr(u,'validate_mac_app',lambda *args:None)
+    monkeypatch.setattr(u.subprocess,'Popen',lambda *args,**kwargs:None)
+    assert u.apply_update(plan)==0
+    assert waited==[321,123]
+    assert (target/'marker').read_text()=='new'
+    assert (backup/'marker').read_text()=='old'
+    assert json.loads(result.read_text())['ok']

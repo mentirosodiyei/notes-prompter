@@ -65,3 +65,9 @@ There is a CI workflow for source tests and the privacy audit. CI does not exerc
 If macOS adds Finder/File Provider metadata in a cloud-synced checkout, build and sign outside that synced folder. For example, set `NOTES_PROMPTER_DIST_DIR` and `NOTES_PROMPTER_BUILD_DIR` to architecture-specific folders under the system temporary directory. Do not remove quarantine or disable platform protections to work around signing failures. Verify the clean bundle and final DMG with `codesign --verify --deep --strict` and `hdiutil verify`.
 
 Windows packages can also be built with the manually dispatched Windows package workflow. It verifies the fixed official Inno Setup 7.1.1 compiler digest, runs source checks and exercises the frozen helper against disposable portable/installed copies. It uploads artifacts only; publishing is a separate action.
+
+## Publishing an update
+
+Create a draft GitHub Release using a numeric `vMAJOR.MINOR.PATCH` tag. Attach all four platform packages (both macOS architectures, Windows installer and Windows portable), verify each SHA256 digest and test the packaged updater before publishing the release as latest. Keep it a draft until every package is present. The updater uses GitHub's asset `digest` field and exact asset names; assets without a valid SHA256 or the matching platform package are not offered. Do not publish an empty release while uploads are pending.
+
+From 0.5.1 the Windows package workflow can build and exercise both update paths on Windows. It uploads artifacts only and does not publish releases. Source CI and disposable-copy updater checks do not replace physical PowerPoint, network and monitor testing.
