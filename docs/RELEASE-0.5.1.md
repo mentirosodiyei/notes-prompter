@@ -20,3 +20,11 @@ Released without a prerelease label. Version 0.5.x remains pre-1.0 software.
 - User guide: six pages, updated without a prerelease label. Screenshots show synthetic data only.
 
 The update helper tests use an already-built local artifact, not a fake publicly published release. GitHub metadata selection and streaming checks are tested separately. A future real version-to-version release still needs field testing. Settings are never uploaded to GitHub; the update connection exposes the usual network IP/client version to GitHub.
+
+## Verification for this release
+
+- 263 Python tests passed on the development Mac; source CI passed on Windows, macOS and Linux.
+- Windows packages were built on GitHub Actions with Python 3.12 and a SHA256-verified Inno Setup 7.1.1 compiler. Both the portable and installed frozen update helper flows passed against disposable copies, including relaunch and preservation of a settings canary.
+- Apple Silicon and Intel packages passed strict signature, architecture, catalog and normal startup checks. Both packaged helper flows passed DMG staging, replacement, backup and relaunch against disposable copies; Intel was exercised under Rosetta.
+- The tests use a local package of the same version to exercise replacement. They do not claim an end-to-end public upgrade from 0.5.1 to a future release that does not yet exist. Published asset selection and download integrity have separate tests.
+- The updated six-page Spanish user guide was rendered and visually checked. Sources and synthetic screenshots passed the privacy preflight. Hardware and PowerPoint limitations from earlier releases remain applicable.

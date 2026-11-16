@@ -65,3 +65,5 @@ En acceptar, es descarrega el paquet correcte de GitHub i se’n verifiquen mida
 
 
 ![Actualitzacions setmanals o mensuals, amb cerca manual opcional.](images/updates-ca.png)
+
+Les consultes contacten amb GitHub per HTTPS i indiquen la versió de l’app; GitHub pot veure la IP del client. No s’hi envien notes, ajustos ni preconfiguracions.

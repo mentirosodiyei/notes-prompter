@@ -110,3 +110,5 @@ Downloads require HTTPS, matching size and GitHub's SHA256 digest. Mac apps also
 
 
 ![Update settings: weekly or monthly, with an optional manual check.](docs/images/updates-en.png)
+
+Update checks contact GitHub over HTTPS and identify the app version; GitHub can see the client IP. Notes, settings and presets are never included in these requests.

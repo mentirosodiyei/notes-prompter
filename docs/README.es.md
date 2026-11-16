@@ -65,3 +65,5 @@ Al aceptar se descarga el paquete correcto de GitHub, se verifican tamaño y SHA
 
 
 ![Actualizaciones semanales o mensuales, con búsqueda manual opcional.](images/updates-es.png)
+
+Las consultas contactan con GitHub por HTTPS e indican la versión de la app; GitHub puede ver la IP del cliente. No se envían notas, ajustes ni presets.
