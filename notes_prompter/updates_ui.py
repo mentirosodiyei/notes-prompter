@@ -49,12 +49,13 @@ class UpdateManager:
         if not data.get('ok'):
             messagebox.showerror(tr('Actualizaciones'), tr('No se pudo completar la actualización. Se ha conservado la aplicación anterior.'), parent=self.root)
 
-    def save_preferences(self):
+    def save_preferences(self, show_error=True):
         try:
             self.preferences.save(self.preferences_path)
             return True
         except OSError:
-            messagebox.showerror(tr('Actualizaciones'), tr('No se pudieron guardar las preferencias de actualización.'), parent=self.root)
+            if show_error:
+                messagebox.showerror(tr('Actualizaciones'), tr('No se pudieron guardar las preferencias de actualización.'), parent=self.root)
             return False
 
     def settings(self):
@@ -95,7 +96,7 @@ class UpdateManager:
         self.busy = True
         self.preferences.last_checked = time.time()
         self.next_check = time.monotonic() + self.preferences.days * 86400
-        self.save_preferences()
+        self.save_preferences(show_error=manual)
         def worker():
             try:
                 self.events.put(('checked', check_release(self.target), manual))

@@ -217,6 +217,10 @@ def prepare_plan(release: Release, target: Path, result_path: Path, progress=lam
     stage = Path(tempfile.mkdtemp(prefix='notes-prompter-update-'))
     candidate = None
     try:
+        result_path.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryFile(dir=result_path.parent) as probe:
+            probe.write(b'update-result')
+            probe.flush()
         download = download_release(release, stage, progress)
         kind = 'mac' if sys.platform == 'darwin' else 'installer' if release.name.startswith('Notes-Prompter-Setup-') else 'portable'
         helper = stage / ('helper.app' if kind == 'mac' else 'update-helper.exe')
@@ -350,11 +354,15 @@ def apply_update(plan_path: Path) -> int:
                 replace_with_backup(candidate, target, backup)
             else:
                 raise ValueError('Invalid update kind')
-        result.parent.mkdir(parents=True, exist_ok=True)
-        result.write_text(json.dumps({'ok': True, 'version': data['version']}), encoding='utf-8')
+        ok = True
     except Exception:
+        ok = False
+    # Reporting must never prevent relaunch if the preferences disk became full.
+    try:
         result.parent.mkdir(parents=True, exist_ok=True)
-        result.write_text(json.dumps({'ok': False, 'version': data['version']}), encoding='utf-8')
+        result.write_text(json.dumps({'ok': ok, 'version': data['version']}), encoding='utf-8')
+    except OSError:
+        pass
     # Relaunch the installed app, or the untouched/restored app after an error.
     if target.exists():
         env = dict(os.environ, PYINSTALLER_RESET_ENVIRONMENT='1')
