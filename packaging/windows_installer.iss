@@ -1,4 +1,4 @@
-﻿#define AppVersion "0.5.0"
+﻿#define AppVersion "0.5.1"
 #ifndef AppBinary
   #define AppBinary "..\dist\notes-prompter.exe"
 #endif
@@ -44,7 +44,7 @@ SolidCompression=yes
 CloseApplications=no
 RestartApplications=no
 VersionInfoDescription=Notes Prompter installer
-VersionInfoVersion=0.5.0.0
+VersionInfoVersion=0.5.1.0
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"; InfoBeforeFile: "installer-readme.txt"

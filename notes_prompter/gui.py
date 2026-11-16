@@ -197,6 +197,8 @@ class App(tk.Tk):
         application_menu = tk.Menu(menu, tearoff=False)
         application_menu.add_command(label=tr('Panel de administración'), command=self._open_admin)
         application_menu.add_command(label=tr('Ocultar ventana') if sys.platform == "darwin" else tr('Ocultar junto al reloj'), command=self._hide_to_tray)
+        application_menu.add_command(label=tr('Buscar actualizaciones…'), command=lambda: self.updates.check(manual=True))
+        application_menu.add_command(label=tr('Actualizaciones…'), command=lambda: self.updates.settings())
         application_menu.add_separator()
         application_menu.add_command(label=tr('Salir'), command=lambda: self.after_idle(self._close))
         menu.add_cascade(label=tr('Aplicación'), menu=application_menu)
@@ -286,6 +288,8 @@ class App(tk.Tk):
         self.protocol("WM_DELETE_WINDOW", self._hide_to_tray)
         self.after(150, self._process_tray_actions)
         self._refresh()
+        from .updates_ui import UpdateManager
+        self.updates = UpdateManager(self)
 
     def _label(self, parent, text, *, size=13, weight="normal", color=TEXT):
         return tk.Label(parent, text=text, bg=parent.cget("bg"), fg=color,
@@ -494,6 +498,8 @@ class App(tk.Tk):
             self.mac_menu.set_configuration_enabled(listening)
 
     def _start(self) -> None:
+        if getattr(getattr(self, 'updates', None), 'installing', False):
+            return
         if self._running:
             return
         source = self.sources.get(self.source_var.get())
@@ -612,6 +618,8 @@ class App(tk.Tk):
         if self._exiting:
             return
         self._exiting = True
+        if hasattr(self, 'updates'):
+            self.updates.closed = True
         self._stop()
         self.listener.stop()
         self.listener.join(2)

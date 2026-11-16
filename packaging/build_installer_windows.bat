@@ -1,6 +1,6 @@
 @echo off
 setlocal
-rem Genera dist\Notes-Prompter-Setup-0.5.0.exe con Inno Setup 7 de 64 bits.
+rem Genera dist\Notes-Prompter-Setup-0.5.1.exe con Inno Setup 7 de 64 bits.
 rem Uso: build_installer_windows.bat "C:\ruta\ISCC.exe" ["C:\ruta\python.exe"]
 pushd "%~dp0.." || exit /b 1
 if not "%~1"=="" set "NP_ISCC=%~1"
@@ -18,7 +18,7 @@ if not exist "%NP_ISCC%" (
 call packaging\build_windows.bat "%~2" || goto :error
 "%NP_ISCC%" packaging\windows_installer.iss || goto :error
 echo.
-echo Listo: dist\Notes-Prompter-Setup-0.5.0.exe
+echo Listo: dist\Notes-Prompter-Setup-0.5.1.exe
 popd
 exit /b 0
 :error

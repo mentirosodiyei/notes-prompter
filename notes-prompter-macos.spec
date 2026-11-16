@@ -5,7 +5,7 @@ from pathlib import Path
 from PyInstaller.utils.hooks import collect_submodules
 
 root = Path(SPECPATH)
-version = "0.5.0"
+version = "0.5.1"
 identity = os.environ.get("NOTES_PROMPTER_SIGN_IDENTITY") or None
 target_arch = os.environ.get("NOTES_PROMPTER_ARCH", platform.machine())
 if target_arch not in {"arm64", "x86_64"}:
