@@ -245,7 +245,16 @@ def prepare_plan(release: Release, target: Path, result_path: Path, progress=lam
             probe = tempfile.TemporaryFile(dir=target.parent)
             probe.close()
             shutil.copy2(sys.executable, helper)
-        plan = {'pid': os.getpid(), 'kind': kind, 'target': str(target),
+        bootloader_pid = None
+        if sys.platform == 'win32':
+            import psutil
+            try:
+                parent = psutil.Process(os.getppid())
+                if Path(parent.exe()).resolve() == target.resolve():
+                    bootloader_pid = parent.pid
+            except (psutil.Error, OSError):
+                pass
+        plan = {'pid': os.getpid(), 'bootloader_pid': bootloader_pid, 'kind': kind, 'target': str(target),
                 'candidate': str(candidate or download), 'stage': str(stage),
                 'version': release.version, 'sha256': release.sha256,
                 'result': str(result_path), 'backup': str(target.with_name(target.stem + '.previous-' + uuid.uuid4().hex[:8] + target.suffix))}
@@ -314,10 +323,13 @@ def apply_update(plan_path: Path) -> int:
     result = Path(data['result'])
     (plan_path.parent / 'ready').touch()
     try:
-        try:
-            psutil.Process(data['pid']).wait(timeout=120)
-        except psutil.NoSuchProcess:
-            pass
+        for pid in (data['pid'], data.get('bootloader_pid')):
+            if pid is None:
+                continue
+            try:
+                psutil.Process(pid).wait(timeout=120)
+            except psutil.NoSuchProcess:
+                pass
         if data['kind'] == 'mac':
             if target.name != 'Notes Prompter.app' or not candidate.is_dir():
                 raise ValueError('Invalid application target')
